@@ -61,3 +61,20 @@ DELETE -> to delete data at server -> DELETE
 @params : groupId
 @url : http://localhost:9999/groups/:groupId
 */
+
+
+name, imageUrl, email, mobile, company, title, groupId
+[
+    {
+        "name": "Divyesh",
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGwVd07rcBUxKVqf17F_Li5fy-a_zni7JuEQ&s",
+        "title": "skillqode",
+        "email": "divyeshdankhara34@gmail.com",
+        "mobile": 9313592254,
+        "company": "DD",
+        "groupId":{
+            "id":13,
+            "name":"business"
+        }
+    }
+]

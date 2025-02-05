@@ -1,4 +1,5 @@
 import express,{Application, Request, Response} from 'express';
+import userRouter from './routes/useRouter';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { log } from 'console';
@@ -27,3 +28,4 @@ app.listen(Number(port), hostName, () => {
     console.log(`Express server is started at http://${hostName}:${port}`)
 })
 
+app.use("/api/users",userRouter)
