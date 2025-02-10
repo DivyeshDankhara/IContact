@@ -21,3 +21,23 @@ export const getAllGroups = async (request:Request, response:Response) => {
         return response.status(500).json({"msg":"Data not found"});
     }
 }
+
+/**1
+@usage : create group
+@methodm: POST
+@params : name
+@url : http://localhost:9999/groups
+*/
+export const createGroups = async (request:Request, response:Response) => {
+    let {name} = request.body;
+    let theGroup: IGroup | null | undefined = await new GroupsTable({
+        name: name,
+    }).save();
+    
+    if(theGroup) {
+        return response.status(200).json({
+            data: theGroup,
+            msg: "Group is Created",
+        })
+    }
+}

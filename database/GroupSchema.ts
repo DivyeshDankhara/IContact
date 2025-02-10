@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { IGroup } from "../models/IGroup";
-import { timeStamp } from "console";
 
 const GroupSchema = new mongoose.Schema<IGroup>(
     {

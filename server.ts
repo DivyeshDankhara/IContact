@@ -13,7 +13,7 @@ const dbName: string | undefined = process.env.MONGO_DB_DATABASE;
 const app: Application = express();
 
 app.get("/", (request: Request, response: Response) => {
-  response.json(200);
+  response.status(200);
   response.json({
     msg: "Welcome to express server",
   });
@@ -21,6 +21,7 @@ app.get("/", (request: Request, response: Response) => {
 
 // configure the router
 import groupRouter from "./routes/groupRouter";
+// app.use(express.json());
 app.use("/groups",groupRouter);
 
 if (port) {
@@ -37,7 +38,7 @@ if (port) {
           process.exit(0); //Force stop express server
         });
     }
-    console.log(`Express server is started at ${port}`);
+    console.log(`Express server is started at http://${hostName}:${port}`);
   });
 }
 
