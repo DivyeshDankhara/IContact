@@ -24,7 +24,7 @@ userRouter.get("/",async (requset:Request,response:Response)=>{
 userRouter.post("/", [body('name').not().isEmpty().withMessage("Name is Required")],
     async (requset:Request,response:Response)=>{
     console.log("post");
-    await userController.getAllGroups(requset,response)
+    await userController.createGroups(requset,response)
 })
 
 export default userRouter

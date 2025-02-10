@@ -21,7 +21,7 @@ app.get("/", (request: Request, response: Response) => {
 
 // configure the router
 import groupRouter from "./routes/groupRouter";
-// app.use(express.json());
+app.use(express.json());
 app.use("/groups",groupRouter);
 
 if (port) {
