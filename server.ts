@@ -1,5 +1,5 @@
 import express, { Application, Request, Response } from "express";
-import userRouter from "./routes/groupRouter";
+import groupRouter from "./routes/groupRouter";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { log } from "console";
@@ -20,7 +20,6 @@ app.get("/", (request: Request, response: Response) => {
 });
 
 // configure the router
-import groupRouter from "./routes/groupRouter";
 app.use(express.json());
 app.use("/groups",groupRouter);
 
@@ -41,5 +40,3 @@ if (port) {
     console.log(`Express server is started at http://${hostName}:${port}`);
   });
 }
-
-app.use("/api/users", userRouter);
