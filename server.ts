@@ -3,6 +3,8 @@ import groupRouter from "./routes/groupRouter";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { log } from "console";
+import userRouter from "./routes/userRouter";
+import contactRouter from "./routes/contactRouter";
 dotenv.config({ path: "./.env" });
 
 const port: string | number | undefined = process.env.PORT || 9900;
@@ -22,6 +24,8 @@ app.get("/", (request: Request, response: Response) => {
 // configure the router
 app.use(express.json());
 app.use("/groups",groupRouter);
+app.use("/users",userRouter);
+app.use("/contacts",contactRouter);
 
 if (port) {
   app.listen(Number(port), () => {

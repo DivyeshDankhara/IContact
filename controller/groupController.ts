@@ -6,10 +6,10 @@ import GroupsTable from "../database/GroupSchema";
 
 
 /**1
-@usage : to get all contacts
+@usage : to get all groups
 @methodm: GET
 @params : no-params
-@url : http://localhost:9988/contacts
+@url : http://localhost:9988/groups
 */
 export const getAllGroups = async (request:Request, response:Response) => {
     try {
@@ -29,7 +29,7 @@ export const getAllGroups = async (request:Request, response:Response) => {
 @params : name
 @url : http://localhost:9988/groups
 */
-export const getGroups = async (request:Request, response:Response) => {
+export const createGroups = async (request:Request, response:Response) => {
     let {name} = request.body;
     let theGroup: IGroup | null | undefined = await new GroupsTable({
         name: name,
@@ -63,3 +63,40 @@ export const getGroup = async (request:Request, response:Response) => {
     }
     return response.status(200).json(theGroup);
 }
+
+export const updateGroup = async (request: Request, response: Response) => {
+    let { groupId } = request.params;
+    let { name } = request.body;
+    // const mongoUserId = new mongoose.Types.ObjectId(userId);
+    let theGroup: IGroup | undefined | null = await GroupsTable.findByIdAndUpdate(
+        groupId,
+        {
+            name
+        },
+        {
+            new: true
+        }
+    );
+    if (!theGroup) {
+        return response.status(500).json({
+            data: null,
+            error: "No Group is found",
+        });
+    }
+    return response.status(200).json(theGroup);
+};
+
+export const deleteUser = async (request: Request, response: Response) => {
+    let { groupId } = request.params;
+    // const mongoUserId = new mongoose.Types.ObjectId(userId);
+    let thegroup: IGroup | undefined | null = await GroupsTable.findByIdAndDelete(
+        groupId,
+    );
+    if (!thegroup) {
+        return response.status(500).json({
+            data: null,
+            error: "No Group is found",
+        });
+    }
+    return response.status(200).json(thegroup);
+};
