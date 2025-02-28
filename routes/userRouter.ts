@@ -20,10 +20,17 @@ userRouter.get("/",async (request:Request, response:Response) => {
 @params : name
 @url : http://127.0.0.1:9988/users
 */
-userRouter.post("/", [body('username').not().isEmpty().withMessage("Name is Required")],
+userRouter.post("/register", 
+    [
+        body('username').not().isEmpty().withMessage("Name is Required"),
+        body("email").not().isEmail().withMessage("Email is Required"),
+        body("password").not().isStrongPassword().withMessage("Email is Required"),
+        // body("imageUrl").not().isEmpty().withMessage("Email is Required"),
+        // body("isAdmin").not().isEmpty().withMessage("Email is Required")
+    ],
     async (request:Request, response:Response) => {
         console.log("post");
-        await userController.createUsers(request,response)
+        await userController.registerUser(request,response)
     }
 )
 

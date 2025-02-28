@@ -15,7 +15,7 @@ contactRouter.post("/", [body('username').not().isEmpty().withMessage("Name is R
     }
 )
 
-contactRouter.get("/:contactId",async (request,response) => {
+contactRouter.get("/:contactId",async (request:Request,response:Response) => {
     await contactController.getContact(request,response)
 })
 

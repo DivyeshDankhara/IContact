@@ -2,6 +2,11 @@ import { Request , Response } from "express";
 import { IUser } from "../models/IUser";
 import mongoose from "mongoose";
 import UserTable from "../database/UserSchema";
+import jwt from "jsonwebtoken";
+import bcryptjs from "bcryptjs";
+import gravatar from "gravatar";
+import { validationResult } from "express-validator";
+
 
 export const getAllUsers = async (request:Request, response:Response) => {
     try {
@@ -14,21 +19,79 @@ export const getAllUsers = async (request:Request, response:Response) => {
     }
 }
 
-export const createUsers = async (request:Request, response:Response) => {
-    let {username,email,password,imageUrl,isAdmin} = request.body;
-    let theUser: IUser | null | undefined = await new UserTable({
-        username: username,
-        email: email,
-        password: password,
-        imageUrl: imageUrl,
-        isAdmin: isAdmin,
+// export const registerUser = async (request:Request, response:Response) => {
+//     let {username,email,password,imageUrl,isAdmin} = request.body;
+//     let theUser: IUser | null | undefined = await new UserTable({
+//         username: username,
+//         email: email,
+//         password: password,
+//         imageUrl: imageUrl,
+//         isAdmin: isAdmin,
 
-    }).save();
+//     }).save();
 
-    if(theUser) {
-        return response.status(200).json({
-            data: theUser,
-            msg: "User is Created",
+//     if(theUser) {
+//         return response.status(200).json({
+//             data: theUser,
+//             msg: "User is Created",
+//         })
+//     }
+// }
+
+/**
+ * @usage : register a user
+ * @method : POST 
+ * @params : username, email, password
+ * @url : http://127.0.0.1:9988/users/register
+ * @access : 
+ */
+export const registerUser = async (request:Request , response:Response) => {
+    const errors = validationResult(request);
+    if(!errors.isEmpty()) {
+        return response.status(400).json({errors: errors.array()});
+    }
+    try{
+        // read the from data
+        let {username, email, password} = request.body;
+        // checks if the user is exists
+        const userObj = await UserTable.findOne({email: email});
+        if(userObj) {
+            return response.status(400).json({
+                error: "The user is already exists"
+            })
+        }
+        // password ancryption
+        const salt = await bcryptjs.genSalt(10);
+        const hashPassword = await bcryptjs.hash(password, salt);
+
+        // gravatar url
+        const imageUrl = gravatar.url(email, {
+            size: "200",
+            rating: 'pg',
+            default: "mm"
+        });
+
+        // insert to db
+        const newUser: IUser = {
+            username: username,
+            email: email,
+            password: password,
+            imageUrl: imageUrl,
+            isAdmin: false
+        }
+
+        const theUserObj = await new UserTable(newUser).save();
+        if(theUserObj) {
+            return response.status(200).json({
+                    // status: APP_STATUS.SUCCESS,
+                    data: theUserObj,
+                    msg: "Registration is success",
+            })
+        }
+
+    } catch (error:any) {
+        return response.status(500).json({
+            error: error.message
         })
     }
 }

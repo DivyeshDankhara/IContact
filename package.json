@@ -8,18 +8,33 @@
   },
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "\"# IContact\"",
   "dependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.0",
+    "@types/gravatar": "^1.8.6",
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^22.13.0",
+    "bcryptjs": "^3.0.2",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-validator": "^7.2.1",
+    "gravatar": "^1.8.2",
     "jsonfile": "^6.1.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.6",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DivyeshDankhara/IContact.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/DivyeshDankhara/IContact/issues"
+  },
+  "homepage": "https://github.com/DivyeshDankhara/IContact#readme"
 }

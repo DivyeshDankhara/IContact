@@ -9,9 +9,9 @@ export const getAllContact = async (request:Request, response:Response) => {
         if(users) {
             return response.status(200).json(users);
         } 
-    } catch (erroe: any) {
+    } catch (error: any) {
         return response.status(500).json({"msg":"Data not found"});
-    }
+    } 
 }
 
 export const createContact = async (request:Request, response:Response) => {
