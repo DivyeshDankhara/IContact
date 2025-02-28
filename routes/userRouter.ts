@@ -23,8 +23,8 @@ userRouter.get("/",async (request:Request, response:Response) => {
 userRouter.post("/register", 
     [
         body('username').not().isEmpty().withMessage("Name is Required"),
-        body("email").not().isEmail().withMessage("Email is Required"),
-        body("password").not().isStrongPassword().withMessage("Email is Required"),
+        body("email").not().isEmpty().withMessage("Email is Required"),
+        body("password").isStrongPassword().withMessage("Strong Password is Required"),
         // body("imageUrl").not().isEmpty().withMessage("Email is Required"),
         // body("isAdmin").not().isEmpty().withMessage("Email is Required")
     ],

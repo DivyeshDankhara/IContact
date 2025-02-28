@@ -2,7 +2,6 @@ import express, { Application, Request, Response } from "express";
 import groupRouter from "./routes/groupRouter";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { log } from "console";
 import userRouter from "./routes/userRouter";
 import contactRouter from "./routes/contactRouter";
 dotenv.config({ path: "./.env" });

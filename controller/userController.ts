@@ -75,7 +75,7 @@ export const registerUser = async (request:Request , response:Response) => {
         const newUser: IUser = {
             username: username,
             email: email,
-            password: password,
+            password: hashPassword,
             imageUrl: imageUrl,
             isAdmin: false
         }
