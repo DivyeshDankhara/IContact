@@ -80,6 +80,7 @@ export const registerUser = async (request:Request , response:Response) => {
             isAdmin: false
         }
 
+        
         const theUserObj = await new UserTable(newUser).save();
         if(theUserObj) {
             return response.status(200).json({
