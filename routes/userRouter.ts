@@ -18,12 +18,12 @@ userRouter.get("/",async (request:Request, response:Response) => {
 @usage : create user
 @method : POST
 @params : name
-@url : http://127.0.0.1:9988/users
+@url : http://127.0.0.1:9988/users/register
 */
 userRouter.post("/register", 
     [
         body('username').not().isEmpty().withMessage("Name is Required"),
-        body("email").not().isEmpty().withMessage("Email is Required"),
+        body("email").isEmail().withMessage("Email is Required"),
         body("password").isStrongPassword().withMessage("Strong Password is Required"),
         // body("imageUrl").not().isEmpty().withMessage("Email is Required"),
         // body("isAdmin").not().isEmpty().withMessage("Email is Required")
@@ -34,6 +34,25 @@ userRouter.post("/register",
     }
 )
 
+/**
+@usage : create user
+@method : POST
+@params : name
+@url : http://127.0.0.1:9988/users/login
+@access : PUBLIC
+*/
+userRouter.post("/login", 
+    [
+        body("email").isEmail().withMessage("Email is Required"),
+        body("password").isStrongPassword().withMessage("Strong Password is Required"),
+        // body("imageUrl").not().isEmpty().withMessage("Email is Required"),
+        // body("isAdmin").not().isEmpty().withMessage("Email is Required")
+    ],
+    async (request:Request, response:Response) => {
+        console.log("post");
+        await userController.loginUser(request,response)
+    }
+)
 /**
 @usage : to get users by id
 @method : GET
