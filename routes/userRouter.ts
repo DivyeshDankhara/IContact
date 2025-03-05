@@ -1,6 +1,7 @@
 import { Request , Response , Router} from "express"
 import * as userController from "../controller/userController"
 import {body} from "express-validator"
+import { TokenMiddleware } from "../middlewares/TokenMiddleware"
 
 const userRouter:Router = Router()
 
@@ -41,7 +42,7 @@ userRouter.post("/register",
 @url : http://127.0.0.1:9988/users/login
 @access : PUBLIC
 */
-userRouter.post("/login", 
+userRouter.post("/login", TokenMiddleware,
     [
         body("email").isEmail().withMessage("Email is Required"),
         body("password").isStrongPassword().withMessage("Strong Password is Required"),
