@@ -116,6 +116,7 @@ export const loginUser = async (request: Request, response: Response) => {
                 }
             );
         }
+
         // check for password
         let isMatch: boolean = await bcryptjs.compare(password, userobj.password);
         if (!isMatch) {
@@ -124,6 +125,7 @@ export const loginUser = async (request: Request, response: Response) => {
                 error: "Invalid Passwrod !"
             });
         }
+        
         // create Token
         const secretKey: string | undefined = process.env.JWT_SECRET_KEY;
         const payload: any = {
